@@ -1,0 +1,12 @@
+*bufclean.txt* Delete all buffers except those opened in the window(s).
+
+Author:  LazyCat <lazycat7706@gmail.com>
+License: Same terms as Vim itself (see |license|)
+
+                                                *:BufClean*
+:BufClean[!]     Delete all buffers except those opened in the window(s).
+                 If the buffer to be deleted was changed, it will fail, 
+                 unless when [!] is specified, in which case changes are 
+                 lost.
+
+ vim:tw=78:et:ft=help:norl:
