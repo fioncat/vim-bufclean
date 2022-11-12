@@ -1,3 +1,28 @@
+**This is deprecated, please use lua script in neovim instead:**
+
+```lua
+vim.api.nvim_create_user_command("ClearHiddenBuffer", function(opts)
+	local non_hidden_buffer = {}
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local buf = vim.api.nvim_win_get_buf(win)
+		non_hidden_buffer[buf] = true
+	end
+
+	local buffers = vim.api.nvim_list_bufs()
+	for _, buf in ipairs(buffers) do
+		local modified = vim.fn.getbufvar(buf, "&modified")
+		-- we won't delete modified buffer
+		if modified ~= 1 and non_hidden_buffer[buf] == nil then
+			vim.api.nvim_buf_delete(buf, {
+				force = false,
+			})
+		end
+	end
+	-- Force bufferline to reload
+	vim.api.nvim_exec("BufferLineSortByTabs", false)
+end, {})
+```
+
 # vim-bufclean
 
 A vim-plugin to delete all buffers except those opened in the window.
